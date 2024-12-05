@@ -40,7 +40,7 @@
 ```
 
 ### Juan i Pepe es van intercalant més o menys de forma equitativa.
-
+````
 Termina thread main
 Pepe 1
 Juan 1
@@ -62,7 +62,7 @@ Juan 8
 Juan 9
 Termina el fil Juan
 Termina el fil Pepe
-
+````
 ## Comportament 2
 
 ### Codi
@@ -115,7 +115,7 @@ Termina el fil Pepe
 ```
 
 ### Primer majorment Pepe i després Juan en totes les execucions que faig.
-
+````
 Termina thread main
 Pepe 1
 Pepe 2
@@ -137,7 +137,7 @@ Juan 8
 Juan 9
 Termina el fil Pepe
 Termina el fil Juan
-
+````
 ## Comportament 3
 
 ### Codi
@@ -177,7 +177,7 @@ Termina el fil Juan
 ```
 
 ### Execució en ordre estricte altern entre cada fil
-
+````
 Termina thread main
 Pepe 1
 Juan 1
@@ -199,8 +199,11 @@ Juan 9
 Pepe 9
 Termina el fil Pepe
 Termina el fil Juan
+````
 
 ### Conclusions
+````
 En Comportament 1, l'ús d'sleep() aleatori, sense cap control explícit, fa que els fils no tinguin un ordre estrictament determinat.
 En Comportament 2, el control explícit amb join() obliga a Pepe a completar tot el seu codi abans que Juan comenci, ordre sequencial.
 En Comportament 3, l'ús d'un temps de sleep() fixat de 51ms permet una alternança estricta entre els fils.
+````
