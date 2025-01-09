@@ -26,7 +26,7 @@ public class Motor implements Runnable {
         this.potenciaObjectiu = p;
     }
 
-    // Implementar el método run para el hilo
+    // Implementar el metode run per al fil
     @Override
     public void run() {
         // si la potència objectiu és diferent de l'actual, la canvio
@@ -50,12 +50,15 @@ public class Motor implements Runnable {
                     this.potenciaActual--;
                 }
 
-                // Imprimir l'estat del motor
+                // verificar si hem arribat a l'objectiu després de modificar la potència
+                if (this.potenciaActual == this.potenciaObjectiu) {
+                    System.out.printf("Motor %d: FerRes Objectiu: %d Actual: %d%n", this.id, this.potenciaObjectiu, this.potenciaActual);
+                    break; // salir del bucle
+                }
+
+                // imprimir l'estat del motor
                 System.out.printf("Motor %d: %s Objectiu: %d Actual: %d%n", this.id, operacio, this.potenciaObjectiu, this.potenciaActual);
             }
-
-            // imprimir quan el motor arriba a la potència objectiu
-            System.out.printf("Motor %d: FerRes Objectiu: %d Actual: %d%n", this.id, this.potenciaObjectiu, this.potenciaActual);
         }
     }
 }

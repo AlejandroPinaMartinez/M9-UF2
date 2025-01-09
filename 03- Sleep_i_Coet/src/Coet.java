@@ -15,23 +15,23 @@ public class Coet {
         }
     }
 
-    // método para comprobar y establecer la potencia en los 4 motores
+    // métode para comprobar y establir la potencia als 4 motors
     public void passaAPotencia(int p) {
         System.out.println("Passant a potència " + p);
 
-        // establecer la potencia de los 4 motores
+        // establir la potencia dels 4 motors
         for (int i = 0; i < 4; i++) {
             motors[i].setPotencia(p);
         }
 
-        // Crear un hilo para cada motor
+        // Crear un fil per cada motor
         Thread[] threads = new Thread[4];
         for (int i = 0; i < 4; i++) {
             threads[i] = new Thread(motors[i]);
             threads[i].start(); // Iniciar el hilo
         }
 
-        // Esperar que todos los hilos terminen
+        // Esperar a que acabin tots els fils
         try {
             for (Thread thread : threads) {
                 thread.join();
@@ -41,27 +41,27 @@ public class Coet {
         }
     }
 
-    // método para arrancar los motores
+    // metode per arrencar els motors
     public void arranca() {
         for (int i = 0; i < 4; i++) {
             motors[i].setPotencia(motors[i].getPotenciaObjectiu());
         }
     }
 
-    // método principal para leer la potencia desde la consola y establecerla en todos los motores
+    // métode per llegir la potencia desde la consola i establirla en tots els motors
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Coet coet = new Coet();
 
-        // leer y asignar potencias continuamente
+        // llegir i assignar les potencies continuament
         while (true) {
-            System.out.print("Introduce la potencia objectiu: ");
+            System.out.print("Introdueix la potencia objectiu: ");
             int potencia = sc.nextInt();
 
-            // establecer la potencia de todos los motores
+            // establir la potencia de tots els motors
             coet.passaAPotencia(potencia);
 
-            // si la potencia es 0, para todos los ciclos
+            // si la potencia es 0, per a tots els cicles
             if (potencia == 0) {
                 break;
             }
