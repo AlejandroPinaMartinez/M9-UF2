@@ -15,29 +15,33 @@ class Treballador extends Thread {
         this.sou_anual_brut = nou_anual_brut;
         this.edat_inici_treball = edat_inici_treball;
         this.edat_fi_treball = edat_fi_treball;
-        this.edat_actual = edat_inici_treball; 
+        this.edat_actual = edat_inici_treball;
         this.cobrat = 0.0f;
         this.rnd = new Random();
     }
 
-    public void cobra() {
-        cobrat += sou_anual_brut / 12;
+    private void cobra() {
+        cobrat += (sou_anual_brut / 12.0f); 
     }
 
-    public void pagaImpostos() {
-        cobrat -= cobrat * 0.24;
+    private void pagaImpostos() {
+        cobrat -= (sou_anual_brut / 12.0f) * 0.24f;
     }
 
     @Override
     public void run() {
-        while (edat_actual < edat_fi_treball) {
-            cobra();          // incrementa diners cobrats
-            pagaImpostos();   // redueix els impostos
-            edat_actual++;    //incrementa la edat
+        while (edat_actual < edat_fi_treball) { 
+            if (edat_actual >= edat_inici_treball) { 
+                for (int i = 0; i < 12; i++) { 
+                    cobra();
+                    pagaImpostos();
+                }
+            }
+            edat_actual++; 
             try {
                 Thread.sleep(100); 
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.err.println(getName() + " interrumput.");
             }
         }
     }
