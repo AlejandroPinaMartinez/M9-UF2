@@ -10,12 +10,12 @@ class Treballador extends Thread {
     private float cobrat;
     private Random rnd;
 
-    public Treballador( String nom,float nou_anual_brut, int edat_inici_treball, int edat_fi_treball) {
+    public Treballador(String nom, float nou_anual_brut, int edat_inici_treball, int edat_fi_treball) {
         super(nom);
         this.sou_anual_brut = nou_anual_brut;
         this.edat_inici_treball = edat_inici_treball;
         this.edat_fi_treball = edat_fi_treball;
-        this.edat_actual = 0;
+        this.edat_actual = edat_inici_treball; 
         this.cobrat = 0.0f;
         this.rnd = new Random();
     }
@@ -31,9 +31,9 @@ class Treballador extends Thread {
     @Override
     public void run() {
         while (edat_actual < edat_fi_treball) {
-            cobra();          
-            pagaImpostos();  
-            edat_actual++;   
+            cobra();          // incrementa diners cobrats
+            pagaImpostos();   // redueix els impostos
+            edat_actual++;    //incrementa la edat
             try {
                 Thread.sleep(100); 
             } catch (InterruptedException e) {
