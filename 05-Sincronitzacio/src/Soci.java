@@ -21,10 +21,12 @@ class Soci implements Runnable {
     public void run() {
         for (int any = 0; any < MAX_ANYS; any++) {
             for (int mes = 1; mes <= 12; mes++) {
-                if (mes % 2 == 0) {
-                    compte.ingressar(APORTACIO);
-                } else {
-                    compte.retirar(APORTACIO);
+                synchronized(compte){
+                    if (mes % 2 == 0) {
+                        compte.ingressar(APORTACIO);
+                    } else {
+                        compte.retirar(APORTACIO);
+                    }
                 }
                 try {
                     Thread.sleep(random.nextInt(ESPERA_MAX));
