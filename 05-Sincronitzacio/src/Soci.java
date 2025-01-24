@@ -8,20 +8,24 @@ class Soci implements Runnable {
     private final Compte compte;
     private final Random random;
 
+    // Constructor 
     public Soci() {
         this.compte = Compte.getInstance();
         this.random = new Random();
     }
 
+    // Obté la instància del compte
     public Compte getCompte() {
         return compte;
     }
 
+    // Comportament del soci durant els anys i mesos
     @Override
     public void run() {
         for (int any = 0; any < MAX_ANYS; any++) {
             for (int mes = 1; mes <= 12; mes++) {
-                synchronized(compte){
+                synchronized(compte) {
+                    // Ingressa o retira diners segons el mes
                     if (mes % 2 == 0) {
                         compte.ingressar(APORTACIO);
                     } else {
@@ -29,6 +33,7 @@ class Soci implements Runnable {
                     }
                 }
                 try {
+                    // Espera un temps aleatori abans de la següent acció
                     Thread.sleep(random.nextInt(ESPERA_MAX));
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();

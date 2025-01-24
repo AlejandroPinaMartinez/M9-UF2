@@ -2,6 +2,7 @@ class Compte {
     private static Compte instance;
     private float saldo;
 
+    // Constructors
     private Compte() {
         this.saldo = 0;
     }
@@ -13,6 +14,7 @@ class Compte {
         return instance;
     }
 
+    // Getters i setters
     public synchronized float getSaldo() {
         return saldo;
     }

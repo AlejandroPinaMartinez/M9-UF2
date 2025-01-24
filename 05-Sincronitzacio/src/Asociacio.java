@@ -8,6 +8,7 @@ class Associacio {
         associacio.mostraBalancComptes();
     }
 
+    // Inicialitza un array de socis
     public Associacio() {
         this.socis = new Soci[NUM_SOCIS];
         for (int i = 0; i < NUM_SOCIS; i++) {
@@ -15,6 +16,7 @@ class Associacio {
         }
     }
 
+    // inicia els fils per gestionar el temps dels socis
     public void iniciaCompteTempsSocis() {
         Thread[] fils = new Thread[NUM_SOCIS];
         for (int i = 0; i < NUM_SOCIS; i++) {
@@ -31,11 +33,9 @@ class Associacio {
         }
     }
 
+    // Mostra el saldo
     public void mostraBalancComptes() {
         Compte compte = Compte.getInstance();
         System.out.printf("Saldo: %.2f", compte.getSaldo());
     }
 }
-
-    
-
