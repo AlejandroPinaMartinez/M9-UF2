@@ -1,20 +1,21 @@
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 class Forquilla {
     private final int id;
-    private final Lock lock = new ReentrantLock();
+    private boolean enUs = false; 
 
     public Forquilla(int id) {
         this.id = id;
     }
 
-    public boolean agafar() {
-        return lock.tryLock();
+    public synchronized boolean agafar() {
+        if (!enUs) {
+            enUs = true; 
+            return true;
+        }
+        return false; 
     }
 
-    public void deixar() {
-        lock.unlock();
+    public synchronized void deixar() {
+        enUs = false; 
     }
 
     public int getId() {
