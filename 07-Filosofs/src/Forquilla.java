@@ -3,7 +3,7 @@ class Forquilla {
     private boolean enUs = false; 
 
     public Forquilla(int id) {
-        this.id = id;
+        this.id = id ; 
     }
 
     public synchronized boolean agafar() {
