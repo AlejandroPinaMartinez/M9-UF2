@@ -16,7 +16,7 @@ class Filosof extends Thread {
     }
 
     private void pensar() throws InterruptedException {
-        System.out.println("Filòsof " + id + " pensant");
+        System.out.println("Filòsof: fil" + id + " pensant");
         Thread.sleep(random.nextInt(1000) + 1000);
     }
 
@@ -25,12 +25,12 @@ class Filosof extends Thread {
             agafarForquilles();
 
             if (esquerra.getPropietari() == id && dreta.getPropietari() == id) {
-                System.out.println("Filòsof " + id + " menja");
+                System.out.println("Filòsof: fil" + id + " menja");
                 Thread.sleep(random.nextInt(1000) + 1000); 
                 deixarForquilles();
                 break;
             } else {
-                System.out.println("Filòsof " + id + " no pot menjar, esperant...");
+                System.out.println("Filòsof: fil" + id + " no pot menjar, esperant...");
                 gana++;
                 deixarForquilles();
                 Thread.sleep(random.nextInt(500) + 500); 
@@ -38,25 +38,36 @@ class Filosof extends Thread {
         }
     }
 
-    private void agafarForquilles() throws InterruptedException {
+    private boolean agafarForquilles() throws InterruptedException {
         agafarForquillaEsquerra();
+        
+        if (dreta.getPropietari() != -1) {  
+            System.out.println("Filòsof: fil" + id + " deixa l'esquerra (" + esquerra.getId() + ") i espera (dreta ocupada)");
+            esquerra.deixar();
+            gana++;
+            System.out.println("Filòsof: fil" + id + " gana=" + gana);
+            Thread.sleep(random.nextInt(500) + 500);
+            return false;
+        }
+
         agafarForquillaDreta();
+        return true;
     }
 
     private void agafarForquillaEsquerra() throws InterruptedException {
         esquerra.agafar(id);
-        System.out.println("Filòsof " + id + " agafa la forquilla esquerra " + esquerra.getId());
+        System.out.println("Filòsof: fil" + id + " agafa la forquilla esquerra " + esquerra.getId());
     }
 
     private void agafarForquillaDreta() throws InterruptedException {
         dreta.agafar(id); 
-        System.out.println("Filòsof " + id + " agafa la forquilla dreta " + dreta.getId());
+        System.out.println("Filòsof: fil" + id + " agafa la forquilla dreta " + dreta.getId());
     }
 
     private void deixarForquilles() {
         esquerra.deixar();
         dreta.deixar();
-        System.out.println("Filòsof " + id + " ha acabat de menjar.");
+        System.out.println("Filòsof: fil" + id + " ha acabat de menjar.");
     }
 
     @Override
