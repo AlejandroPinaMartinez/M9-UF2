@@ -7,16 +7,18 @@ public class Barri {
             fumadors[i] = new Fumador(estanc, i);
         }
 
-        Thread estancThread = new Thread(estanc::nouSubministrament);
+        Thread estancThread = new Thread(() -> estanc.executar());
         estancThread.start();
 
-        for (Fumador f : fumadors) {
-            f.start();
+        Thread[] fumadorThreads = new Thread[3];
+        for (int i = 0; i < 3; i++) {
+            fumadorThreads[i] = new Thread(fumadors[i]);
+            fumadorThreads[i].start();
         }
 
-        for (Fumador f : fumadors) {
+        for (Thread fumadorThread : fumadorThreads) {
             try {
-                f.join();
+                fumadorThread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

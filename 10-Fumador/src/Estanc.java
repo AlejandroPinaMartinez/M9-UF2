@@ -1,31 +1,37 @@
 
+import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Estanc {
     private List<Tabac> tabac = new ArrayList<>();
     private List<Paper> paper = new ArrayList<>();
     private List<Llumi> llumins = new ArrayList<>();
     private boolean estancObert = true;
+    private final Random random = new Random();
+
+    public Estanc() {
+        this.tabac = new ArrayList<>();
+        this.paper = new ArrayList<>();
+        this.llumins = new ArrayList<>();
+    }
 
     public synchronized void nouSubministrament() {
-        Random rand = new Random();
-        System.out.println("Estanc obert");
-        while (estancObert) {
-            int producte = rand.nextInt(3);
-            switch (producte) {
-                case 0 -> addTabac();
-                case 1 -> addPaper();
-                case 2 -> addLlumi();
-            }
-            notifyAll();
-            try {
-                Thread.sleep(500 + rand.nextInt(1000));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        if (!estancObert) return;
+
+        int producte = random.nextInt(3);
+        switch (producte) {
+            case 0:
+                addTabac();
+                break;
+            case 1:
+                addPaper();
+                break;
+            case 2:
+                addLlumi();
+                break;
         }
+        notifyAll();
     }
 
     public synchronized void addTabac() {
@@ -63,6 +69,18 @@ public class Estanc {
 
     public synchronized void tancarEstanc() {
         estancObert = false;
-        notifyAll();
+        notifyAll(); 
+    }
+
+    public void executar() {
+        System.out.println("Estanc obert");
+        while (estancObert) {
+            try {
+                Thread.sleep(500 + random.nextInt(1000)); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            nouSubministrament();
+        }
     }
 }
