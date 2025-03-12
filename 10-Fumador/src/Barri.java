@@ -25,6 +25,6 @@ public class Barri {
         }
 
         estanc.tancarEstanc();
-        System.out.println("Estanc tancat");
+        System.out.println("Estanc tencat");
     }
 }
